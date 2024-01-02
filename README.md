@@ -1,2 +1,0 @@
-# star-invasion
-space game
