@@ -1,0 +1,80 @@
+[gd_scene load_steps=5 format=3 uid="uid://cnknd3miedd5"]
+
+[ext_resource type="PackedScene" uid="uid://vsm8jwhd12gr" path="res://character/player.tscn" id="1_pfcnf"]
+[ext_resource type="Script" path="res://gamemode/game.gd" id="1_wu2is"]
+[ext_resource type="PackedScene" uid="uid://c2mvdqu5pcegy" path="res://assets/block.tscn" id="2_4u04o"]
+
+[sub_resource type="Curve2D" id="Curve2D_ykbuo"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -514, -250, 0, 0, 0, 0, 1434, -250, 0, 0, 0, 0, 1436, 799, 0, 0, 0, 0, -514, 801, 0, 0, 0, 0, -516, -248)
+}
+point_count = 5
+
+[node name="Game" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_wu2is")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_right = 1155.0
+offset_bottom = 649.0
+
+[node name="Player" parent="." instance=ExtResource("1_pfcnf")]
+position = Vector2(411, 286)
+
+[node name="Path2D" type="Path2D" parent="Player"]
+position = Vector2(-411, -286)
+curve = SubResource("Curve2D_ykbuo")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Player/Path2D"]
+unique_name_in_owner = true
+position = Vector2(-514, -250)
+
+[node name="StaticBody2D" parent="." instance=ExtResource("2_4u04o")]
+position = Vector2(184, 441)
+
+[node name="StaticBody2D2" parent="." instance=ExtResource("2_4u04o")]
+position = Vector2(848, 484)
+
+[node name="StaticBody2D3" parent="." instance=ExtResource("2_4u04o")]
+position = Vector2(297, 138)
+
+[node name="StaticBody2D4" parent="." instance=ExtResource("2_4u04o")]
+position = Vector2(869, 186)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.4
+autostart = true
+
+[node name="GameOver" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="GameOver"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0196078, 0.0196078, 0.0196078, 0.521569)
+
+[node name="Label" type="Label" parent="GameOver/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.5
+offset_top = -11.5
+offset_right = 43.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 100
+text = "Game Over"
+
+[connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
