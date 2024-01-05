@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cnknd3miedd5"]
+[gd_scene load_steps=6 format=3 uid="uid://cnknd3miedd5"]
 
 [ext_resource type="PackedScene" uid="uid://vsm8jwhd12gr" path="res://character/player.tscn" id="1_pfcnf"]
 [ext_resource type="Script" path="res://gamemode/game.gd" id="1_wu2is"]
 [ext_resource type="PackedScene" uid="uid://c2mvdqu5pcegy" path="res://assets/block.tscn" id="2_4u04o"]
+[ext_resource type="Texture2D" uid="uid://c84o8v5hescje" path="res://icon.svg" id="4_ytoy3"]
 
 [sub_resource type="Curve2D" id="Curve2D_ykbuo"]
 _data = {
@@ -18,8 +19,10 @@ script = ExtResource("1_wu2is")
 layer = -1
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
-offset_right = 1155.0
-offset_bottom = 649.0
+offset_left = -878.0
+offset_top = -427.0
+offset_right = 2420.0
+offset_bottom = 1016.0
 
 [node name="Player" parent="." instance=ExtResource("1_pfcnf")]
 position = Vector2(411, 286)
@@ -75,6 +78,14 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 100
 text = "Game Over"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -741.0
+offset_top = -352.0
+offset_right = 1560.0
+offset_bottom = 927.0
+texture = ExtResource("4_ytoy3")
+stretch_mode = 1
 
 [connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
